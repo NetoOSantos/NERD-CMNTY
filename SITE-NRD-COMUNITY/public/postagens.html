@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>publicações</title>
+
+    <script src="./assets/js/funcoes.js"></script>
+
+    <link rel="icon" href="./assets/imgs/dontpanic.jpg">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/dashboards.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body onload="validarSessao(), atualizarFeed()" style="background-color: #161618;">
+
+    <img src="assets/imgs/see-you.gif" style="width: 120%; height: 120%; display: none;" id="imgfinish">
+
+        <div class="banner-login" id="bg_img"
+        style="background: linear-gradient(rgba(0, 0, 0, 0.166), rgb(143, 142, 142), #32b8cd87, #32b8cd);">
+
+        <div class="header_postagens">
+                <button class="btn_sites" onclick="jogar()" style="width: 80px;
+                height: 40px;">jogos</button>
+                <button class="btn_sites" onclick="hq()" style="width: 80px;
+                height: 40px;">HQ's</button>
+                <button class="btn_sites" onclick="noticias()" style="width: 95px;
+                height: 40px;">Notícias</button>
+                <button class="btn-logout" onclick="limparSessao()">
+                Sair
+                </button>
+        </div>
+
+        <div class="container"
+            style="display: flex; align-items: center; justify-content: center; flex-direction: column; background-color: aliceblue; padding-bottom: 50vh; background: linear-gradient( rgba(26, 26, 26, 0.213), black);">
+
+            <h1 style="display: flex; align-items: center; justify-content: center;">Time Line</h1>
+            <div class="hello">
+                <h2>Olá, <span id="b_usuario" style="color: #E3B062">usuário</span>!</h2>
+            </div>
+
+
+            <div class="avisos">
+                <div class="container" style="display: flex; align-items: center; justify-content: center;">
+                    <div class="div-form">
+                        <form id="form_postagem" method="post" onsubmit="return publicar()">
+                            Tópico:
+                            <br>
+                            <input name="titulo" id="titulo" maxlength="100" type="text">
+                            <br>
+                            Publicação (máximo de 250 caracteres):
+                            <br>
+                            <textarea name="descricao" id="textarea_descricao" maxlength="250" rows="5"></textarea>
+                            <br>
+                            <button class="btn_enviar">Enviar</button>
+                            <br><br>
+                        </form>
+                    </div>
+                </div>
+            <div class="div-results">
+                <div id="feed_container" class="feed-container">
+                </div>
+            </div> 
+        </div>
+       
+                <!-- AGUARDAR -->
+                <div id="div_aguardar" class="div-aguardar">
+                     <img src="../assets/circle-loading.gif" id="img_aguarde">
+                </div> 
+              
+        </div>
+
+        <!--footer inicio-->
+        <div class="footer" style="background: linear-gradient( rgba(111, 111, 111, 0), black);">
+            <div class="container">
+                <h4>Nerd comunity for all humanity &copy; 2021 | by Walderley Neto</h4>
+            </div>
+        </div>
+
+
+</body>
+
+</html>
+
+<script>
+    
+
+    function limparFormulario() {
+        document.getElementById("form_postagem").reset();
+    }
+
+    function publicar() {
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        var corpo = {
+            titulo: form_postagem.titulo.value,
+            descricao: form_postagem.descricao.value
+        }
+
+        fetch(`/avisos/publicar/${idUsuario}`, {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(corpo)
+        }).then(function (resposta) {
+
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                window.alert("Post realizado com sucesso pelo usuario de ID: " + idUsuario + "!");
+                window.location = "./postagens.html";
+                limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (erro) {
+            console.log(`#ERRO: ${erro}`);
+            finalizarAguardar();
+        });
+
+        return false;
+
+    }
+
+    function atualizarFeed() {
+        aguardar();
+        fetch("/avisos/listar").then(function (resposta) {
+            if (resposta.ok) {
+                if (resposta.status == 204) {
+                    var feed = document.getElementById("feed_container");
+                    var mensagem = document.createElement("span");
+                    mensagem.innerHTML = "Nenhum resultado encontrado."
+                    feed.appendChild(mensagem);
+                    throw "Nenhum resultado encontrado!!";
+                }
+
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos: ", JSON.stringify(resposta));
+
+                    var feed = document.getElementById("feed_container");
+                    feed.innerHTML = "";
+                    for (var i = resposta.length-1; i >= 0; i--) {
+                        var publicacao = resposta[i];
+
+                        // criando e manipulando elementos do HTML via JavaScript
+                        var divPublicacao = document.createElement("div");
+                        var spanID = document.createElement("span");
+                        var spanTitulo = document.createElement("span");
+                        var spanNome = document.createElement("span");
+                        var divDescricao = document.createElement("div");
+                        var divButtons = document.createElement("div");
+              
+                        spanTitulo.innerHTML = "<b>" + publicacao.titulo + "<br>" + "_____________________________________" + "</b>";
+                        spanNome.innerHTML = '<b style="color: #E3B062">' + publicacao.nome + "</b>";
+                        divDescricao.innerHTML = '<b style="font-size: 25px;">' + publicacao.descricao + "</b>";
+
+                        divPublicacao.className = "publicacao";
+                        spanTitulo.id = "inputNumero" + publicacao.idAviso;
+                        spanNome.className = "publicacao-nome";
+                        spanTitulo.className = "publicacao-titulo";
+                        divDescricao.className = "publicacao-descricao";
+
+                        divButtons.className = "div-buttons"
+
+                        divPublicacao.appendChild(spanID);
+                        divPublicacao.appendChild(spanNome);
+                        divPublicacao.appendChild(spanTitulo);
+                        divPublicacao.appendChild(divDescricao);
+                        divPublicacao.appendChild(divButtons);
+                        feed.appendChild(divPublicacao);
+                    }
+
+                    finalizarAguardar();
+                });
+            } else {
+                throw ('Houve um erro na API!');
+            }
+        }).catch(function (resposta) {
+            console.error(resposta);
+            finalizarAguardar();
+        });
+    }
+
+    function testar() {
+        aguardar();
+
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_postagem")));
+
+        var divResultado = document.getElementById("div_feed");
+
+        divResultado.appendChild(document.createTextNode(formulario.get("descricao")));
+        divResultado.innerHTML = formulario.get("descricao");
+
+        finalizarAguardar();
+
+        return false;
+    }
+ function jogar() {
+     window.location = 'https://www.retrogames.cz';
+ }
+ function hq() {
+    window.location = 'http://www.hq-now.com';
+ }
+ function noticias() {
+    window.location = 'https://lampadanerd.com.br';
+ }
+
+</script>

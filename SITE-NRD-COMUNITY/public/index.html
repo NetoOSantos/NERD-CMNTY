@@ -1,0 +1,93 @@
+  <!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CMNTY | Página Inicial</title>
+
+    <script src="./assets/js/funcoes.js"></script>
+
+    <link rel="icon" href="./assets/imgs/dontpanic.jpg">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+<body>
+    <img src="assets/imgs/hyperspace.gif" alt="" style="width: 100%; height: 100%;" id="imgWelcome">
+    <div class="header">
+
+        <div class="container">
+            <h1><a href="index.html">NRD CMNTY</a></h1>
+            <ul class="navbar">
+                <li class="agora">Inicial</li>
+                <li>|</li>
+                <li>
+                    <a href="./login.html">Login</a>
+                </li>
+                <li>
+                    <a href="./cadastro.html">Cadastro</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="banner" id="bg_img"
+        style="background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
+        <div class="container">
+            <div id="div_total" style="color: whitesmoke; display: flex; align-items: center; justify-content: left; flex-direction: column"></div>
+            <p>
+                <span>NRD</span> CMNTY <span style="color: #E3B062;">42</span>
+            </p>
+        </div>
+    </div>
+
+    <div class="footer" style="width: 100vw; height: 13vh; background: linear-gradient( #249eb1, #32b8cd64);">
+    <div class="container">
+            <h4>Nerd comunity for all humanity &copy; 2021 | by Walderley Neto</h4>
+    </div>
+    </div>
+    
+</body>
+</html>
+<script>
+
+    setTimeout(() => {
+        imgWelcome.style.display = 'none';
+    }, 2000)
+
+    var random = Number((Math.random() * 6).toFixed());
+
+    setInterval(
+        () => {
+
+            if (random == 0) { bg_img.style.backgroundImage = "url('./assets/imgs/starwarspixel.gif')" }
+            else if (random == 1) { bg_img.style.backgroundImage = "url('./assets/imgs/frodo.gif')" }
+            else if (random == 2) { bg_img.style.backgroundImage = "url('./assets/imgs/spike.gif')" }
+            else if (random == 3) { bg_img.style.backgroundImage = "url('./assets/imgs/vader.gif')" }
+            else if (random == 4) { bg_img.style.backgroundImage = "url('./assets/imgs/rnm.gif')" }
+            else if (random == 5) { bg_img.style.backgroundImage = "url('./assets/imgs/Guia-do-Mochileiro-das-Galáxias.gif')" }
+            else if (random == 6) { bg_img.style.backgroundImage = "url('./assets/imgs/kimetsunoyaiba.gif')" }
+
+            if (random == 6) {
+                random = 0;
+            }
+
+            random++
+
+        }, 1200)
+
+    fetch("/usuarios/contagem").then(function(resposta){
+        resposta.json().then(function(json){
+            console.log(json)
+            div_total.innerHTML = `Já somos <b style="color: #249eb1">${json[0].qtd}</b> NRDY's`;
+        })
+        }).catch(function(erro){
+        console.log(erro)
+        })  
+
+</script>

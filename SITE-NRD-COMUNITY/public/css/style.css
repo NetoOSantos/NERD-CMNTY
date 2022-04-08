@@ -1,0 +1,395 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: fantasy;
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    background-color: black;
+    
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    border-radius: 15px;
+}
+
+.header {
+    background: linear-gradient( rgba(0, 0, 0, 0), black);
+    color: white; text-shadow: #E3B062 0.1em 0.1em 0.2em;
+    border-bottom: 3px solid #5b9e41;
+    border-radius: 15px;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 15px;
+}
+
+.header a {
+    text-decoration: none;
+    color: white;
+    
+}
+
+/* header publicação*/
+
+.publicacao {
+    padding-bottom: 15px;
+}
+
+.header_postagens {
+    background: linear-gradient( rgba(0, 0, 0, 0), black);
+    color: white; 
+    text-shadow: #E3B062 0.1em 0.1em 0.2em;
+    border-bottom: 3px solid #5b9e41;
+    border-radius: 15px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.agora a {
+    font-weight: 800;
+    color: #E3B062;
+}
+
+.navbar {
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    list-style: none;
+    color: #E3B062;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* BANNER */
+
+.banner {
+    height: 500px;
+    color: white;
+    
+}
+
+.banner .container {
+    /* border: 3px solid green; */
+    height: 500px;
+    display: flex;
+    align-items: center;
+}
+
+.banner .container div {
+    text-shadow: 0.1em 0.1em 0.2em black;
+    width: 400px;
+    font-size: 36px;
+    position: fixed;  
+}
+
+.banner p {
+    text-shadow: 0.1em 0.1em 0.2em black;
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    width: 280px;
+    font-size: 36px;
+    margin-left:800px;
+    position: fixed;
+}
+
+.banner span {
+    font-weight: 800;
+}
+
+/* FOOTER */
+
+.footer {
+    height: 150px;
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.footer .container {
+    display: flex;
+    justify-content: center;
+    text-shadow: 0.1em 0.1em 0.2em black;
+}
+
+.footer .container h4 {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* LOGIN */
+
+.banner-login {
+    color: whitesmoke;
+    background-image: url(".././assets/imgs/bg-jelly-fish-para_outras_pags.png");
+    background-size: cover;
+}
+
+.banner-login .container {
+    
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.banner-login {
+    color: whitesmoke;
+    text-shadow: 0.1em 0.1em 0.2em black;
+}
+
+.banner-login .card {
+    background-color: #e5e5e500;
+    height: 450px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+
+.banner-login a {
+    color: white;
+    text-decoration: none;
+}
+
+.banner-login #div_erros_login {
+    margin-top: 15px;
+}
+
+button {
+    cursor: pointer;   
+}
+.btn {
+    border-color: #5b9e41;
+    color: #fff;
+    box-shadow: 0 0 40px 40px #4f8a38 inset, 0 0 0 0 #4f8a38;
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+}
+.btn:hover {
+    box-shadow: 0 0 10px 0 #5b9e41 inset, 0 0 10px 4px #5b9e41;
+  }
+
+.btn_enviar {
+    border-color: #5b9e41;
+    color: #fff;
+    box-shadow: 0 0 40px 40px #4f8a38 inset, 0 0 0 0 #4f8a38;
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+    font-family: 'Exo 2', sans-serif;
+    border: 0;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 10px 15px;
+    color: white;
+    background-color: #5b9e4133;
+    width: 120px;
+    align-self: center;
+}
+.btn_enviar:hover {
+    box-shadow: 0 0 10px 0 #5b9e41 inset, 0 0 10px 4px #5b9e41;
+  }
+
+.btn_sites {
+    border-color: #32B9CD;
+    color: #fff ;
+    box-shadow: 0 0 40px 40px #32B9CD inset, 0 0 0 0 #32B9CD;
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+    font-family: 'Exo 2', sans-serif;
+    border: 0;
+    border-radius: 5px;
+    font-weight: 500;
+    color: white;
+    background-color: #5b9e4133;
+    width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+.btn_sites:hover {
+    box-shadow: 0 0 10px 0 #32B9CD inset, 0 0 10px 4px #32B9CD;
+  }
+
+/* FORMULARIO */
+
+input {
+    height: 30px;
+    border: 2px solid #5b9e41;
+    border-radius: 10px;
+}
+
+.btn {
+    font-family: 'Exo 2', sans-serif;
+    border: 0;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 10px 15px;
+    color: white;
+    background-color: #5b9e4133;
+    width: 120px;
+    align-self: center;
+}
+.banner-login button :hover {
+    background-color:white;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.loading-div {
+    width: 50px;
+    /* border: 3px solid pink; */
+    margin: auto;
+    display: none;
+}
+
+.loading-div img {
+    height: 50px;
+    width: 50px;
+}
+
+/* PAGINA DOS GRÁFICOS */
+
+.janela {
+    display: flex;
+    width: 100vw;
+    /* height: 100vh; */
+}
+
+.header-left a {
+    text-decoration: none;
+    color: white;
+}
+
+.header-left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    height: 100vh;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border-right: 3px solid #32B9CD;
+    background-color: #212124;
+    /* border: 3px solid pink; */
+}
+
+.dash-right {
+    display: flex;
+    width: 75%;
+    height: fit-content;
+    background-color: #161618;
+    position: relative;
+    top: 0;
+    left: 25%;
+}
+
+.header-left h1 {
+    color: #32B9CD;
+}
+
+.hello {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 70px;
+}
+
+.hello h2 {
+    color: whitesmoke;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+
+.hello h2 span {
+    font-size: 30px;
+}
+
+.btn-nav {
+    width: 40%;
+    color: white;
+    background-color: #E6005A;
+    border-radius: 5px;
+    text-align: center;
+    padding: 2% 5%;
+}
+
+.btn-nav-white {
+    width: 40%;
+    background-color: white;
+    border: 3px solid #E6005A;
+    border-radius: 5px;
+    text-align: center;
+    padding: 2% 5%;
+}
+
+.btn-nav-white h3 {
+    color: #E6005A;
+    padding: 0;
+    margin: 0;
+}
+
+
+.btn-nav h3, .btn-logout h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.btn-logout {
+    border-color: #E6005A;
+    color: #fff;
+    box-shadow: 0 0 40px 40px #E6005A inset, 0 0 0 0 #E6005A;
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+    font-family: 'Exo 2', sans-serif;
+    border: 0;
+    border-radius: 5px;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 10px 15px;
+    color: white;
+    background-color: #5b9e4133;
+    width: 80px;
+    height: 40px;
+    align-self: center;
+}
+.btn-logout:hover {
+    box-shadow: 0 0 10px 0 #E6005A inset, 0 0 10px 4px #E6005A;
+  }
+
+/* pagina extra - simulador */
+.simulador {
+    color: white;
+}
+
+.div-results {
+    width: 100%;
+}
+
+.div-results .feed-container {
+    background-color: #212124;
+    border-radius: 5px;
+    margin-bottom: 80px;
+}

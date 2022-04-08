@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMNTY | Página Inicial</title>
+
+    <script src="./assets/js/funcoes.js"></script>
+
+    <link rel="icon" href="./assets/imgs/dontpanic.jpg">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    
+    <div class="header">
+        <div class="container">
+            <h1><a href="index.html">CMNTY</a></h1>
+            <ul class="navbar">
+                <li>
+                    <a href="./index.html">
+                        Inicial
+                    </a>
+                </li>
+                <li>|</li>
+                <li class="agora">
+                    <a href="./login.html">Login</a>
+                </li>
+                <li>
+                    <a href="./cadastro.html">Cadastro</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="banner-login" id="bg_img" style="background-repeat: no-repeat; background-size: cover; background-attachment: fixed;">
+        <div class="container">
+        <div class="container">
+            <div class="card medio">
+                <h2>Olá Cowboy!</h2>
+                <div class="formulario">
+                    <form id="form_login" method="post" onsubmit="return entrar()">
+                        E-mail:
+                        <input name="email" type="text" placeholder="Login">
+                        <br>
+                        Senha:
+                        <input name="senha" type="password" placeholder="******">
+                        <br>
+                        <button class="btn" type="submit">
+                            Entrar
+                        </button>
+                    </form>
+
+
+                </div>
+
+                <div id="div_aguardar" class="loading-div">
+                    <img src="./assets/circle-loading.gif" id="loading-gif" >
+                </div>
+
+                <div id="div_erros_login">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--footer inicio-->
+    <div class="footer" style="background: linear-gradient( rgba(111, 111, 111, 0), black);">
+        <div class="container">
+            <h4>Nerd comunity for all humanity &copy; 2021 | by Walderley Neto</h4>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script>
+    
+    var random = Number((Math.random()*6).toFixed());
+
+    setInterval(
+    ()=>{ 
+      
+            if (random == 0) {bg_img.style.backgroundImage = "url('./assets/imgs/starwarspixel.gif')"}
+            else if (random == 1) {bg_img.style.backgroundImage = "url('./assets/imgs/frodo.gif')"}
+            else if (random == 2) {bg_img.style.backgroundImage = "url('./assets/imgs/spike.gif')"}
+            else if (random == 3) {bg_img.style.backgroundImage = "url('./assets/imgs/vader.gif')"}
+            else if (random == 4) {bg_img.style.backgroundImage = "url('./assets/imgs/rnm.gif')"}
+            else if (random == 5) {bg_img.style.backgroundImage = "url('./assets/imgs/Guia-do-Mochileiro-das-Galáxias.gif')"}
+            else if (random == 6) {bg_img.style.backgroundImage = "url('./assets/imgs/kimetsunoyaiba.gif')"}
+
+            if (random == 6) {
+            random=0;
+        }
+
+        random++
+
+    },1200)
+
+    function limparFormulario() {
+        document.getElementById("form_login").reset();
+    }
+
+    function entrar() {
+        aguardar();
+
+        var formulario = new URLSearchParams(new FormData(document.getElementById("form_login")));
+
+        var email = formulario.get("email");
+        var senha = formulario.get("senha");
+
+        console.log("FORM LOGIN: ", email);
+        console.log("FORM SENHA: ", senha);
+
+        // TODO: VERIFICAR AS VALIDAÇÕES QUE ELES ESTÃO APRENDENDO EM ALGORITMOS 
+        if (email == "" || senha == "") {
+            window.alert("Preencha todos os campos para prosseguir!");
+            finalizarAguardar();
+            return false;
+        }
+
+        if (email.indexOf("@") == -1 || email.indexOf(".com") == -1) {
+            window.alert("Ops, e-mail inválido! Verifique e tente novamente.");
+            finalizarAguardar();
+            return false;
+        }
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            body: formulario
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id;
+
+                    setTimeout(function () {
+                        window.location = "./postagens.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+</script>
